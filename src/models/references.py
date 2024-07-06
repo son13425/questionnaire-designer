@@ -1,7 +1,7 @@
 """Модели таблиц справочников."""
 from sqlalchemy import Column, String
 
-from app.core.db import Base
+from app.db.db import Base
 
 
 class ReferencesBase(Base):
@@ -23,4 +23,9 @@ class PositionsReferences(ReferencesBase):
 
 class RegistrationGoalsReferences(ReferencesBase):
     """Создает модель для справочника целей регистрации."""
+    pass
+
+
+class RolesReferences(ReferencesBase):
+    """Создает модель для справочника ролей юзера."""
     pass
