@@ -2,7 +2,7 @@
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Column, Integer, ForeignKey, String, Text
 
-from app.db.db import Base
+from src.db.db import Base
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
@@ -11,7 +11,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     # добавляем пользовательские поля
     organization = Column(Integer, ForeignKey('organizations_references.id'))
     surname = Column(String, nullable=False)
-    name = Column(String, nullable=False)
+    username = Column(String, nullable=False)
     patronymic = Column(String)
     position = Column(Integer, ForeignKey('positions_references.id'))
     phone = Column(String, nullable=False)

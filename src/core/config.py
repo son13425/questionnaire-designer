@@ -6,7 +6,7 @@ import os
 from logging import config as logging_config
 from typing import Optional
 from pydantic import BaseSettings, EmailStr, PostgresDsn
-from core.logger import LOGGING
+from src.core.logger import LOGGING
 
 
 # Применяем настройки логирования
@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     host: str = '0'
     port: int = 8000
     database_dsn: PostgresDsn = (
-        'postgresql+asyncpg://postgres:postgres@localhost:6000/postgres'
+        'postgresql+asyncpg://postgres:postgres@localhost:5432/postgres'
     )
     secret: str = 'SECRET'
     first_superuser_email: Optional[EmailStr] = None

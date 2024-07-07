@@ -1,31 +1,24 @@
 """Модели таблиц справочников."""
 from sqlalchemy import Column, String
 
-from app.db.db import Base
+from src.db.db import Base
 
 
-class ReferencesBase(Base):
-    """Создает базовый класс для моделей справочников."""
-    # Название элемента справочника должно быть не больше 100 символов,
-    # уникальным и непустым.
-    name = Column(String(100), unique=True, nullable=False)
-
-
-class OrganizationsReferences(ReferencesBase):
+class OrganizationsReferences(Base):
     """Создает модель для справочника организаций."""
-    pass
+    name = Column(String, unique=True, nullable=False)
 
 
-class PositionsReferences(ReferencesBase):
+class PositionsReferences(Base):
     """Создает модель для справочника должностей."""
-    pass
+    name = Column(String, unique=True, nullable=False)
 
 
-class RegistrationGoalsReferences(ReferencesBase):
+class RegistrationGoalsReferences(Base):
     """Создает модель для справочника целей регистрации."""
-    pass
+    name = Column(String, unique=True, nullable=False)
 
 
-class RolesReferences(ReferencesBase):
+class RolesReferences(Base):
     """Создает модель для справочника ролей юзера."""
-    pass
+    name = Column(String, unique=True, nullable=False)

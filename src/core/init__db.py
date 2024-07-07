@@ -7,7 +7,7 @@ from pydantic import EmailStr
 from core.config import settings
 from core.user import get_user_db, get_user_manager
 from db.db import get_session
-from schemas.user import UserCreate
+from schemas.users import UserCreate
 
 
 # Превращаем асинхронные генераторы в асинхронные менеджеры контекста.
@@ -34,7 +34,11 @@ async def create_user(
                         UserCreate(
                             email=email,
                             password=password,
-                            is_superuser=is_superuser
+                            is_superuser=is_superuser,
+                            surname='string',
+                            username='string',
+                            phone='string',
+                            role=0
                         )
                     )
     # В случае, если такой пользователь уже есть, ничего не предпринимать.
@@ -53,4 +57,8 @@ async def create_first_superuser():
             email=settings.first_superuser_email,
             password=settings.first_superuser_password,
             is_superuser=True,
+            surname='string',
+            username='string',
+            phone='string',
+            role=0
         )

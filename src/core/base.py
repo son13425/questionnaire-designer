@@ -1,3 +1,3 @@
 """Импорты класса Base и всех моделей для Alembic."""
-from app.db.db import Base  # noqa
-from app.models import OrganizationsReferences, PositionsReferences, RegistrationGoalsReferences, User  # noqa
+from src.db.db import Base  # noqa
+from src.models import OrganizationsReferences, PositionsReferences, RegistrationGoalsReferences, RolesReferences, User  # noqa

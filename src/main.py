@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from api.routers import main_router
 from core.config import settings
-from core.init_db import create_first_superuser
+from core.init__db import create_first_superuser
 
 
 # Инициализация объекта приложения
@@ -16,6 +16,7 @@ app = FastAPI(
     # адреса документации
     docs_url='/api/openapi',
     openapi_url='/api/openapi.json'
+    
 )
 # Подключение роутеров
 app.include_router(main_router)

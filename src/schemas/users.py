@@ -7,7 +7,7 @@ class UserRead(schemas.BaseUser[int]):
     """Схема получения юзера."""
     organization: Optional[int]
     surname: str
-    name: str
+    username: str
     patronymic: Optional[str]
     position: Optional[int]
     phone: str
@@ -19,7 +19,7 @@ class UserCreate(schemas.BaseUserCreate):
     """Схема создания юзера"""
     organization: Optional[int]
     surname: str
-    name: str
+    username: str
     patronymic: Optional[str]
     position: Optional[int]
     phone: str
@@ -31,7 +31,7 @@ class UserUpdate(schemas.BaseUserUpdate):
     """Схема обновления юзера"""
     organization: Optional[int]
     surname: str
-    name: str
+    username: str
     patronymic: Optional[str]
     position: Optional[int]
     phone: str

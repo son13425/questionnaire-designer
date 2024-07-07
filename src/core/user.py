@@ -1,6 +1,6 @@
 """Настройка системы аутентификации пользователя."""
-from typing import Union
-from fastapi import Depends
+from typing import Union, Optional
+from fastapi import Depends, Request
 from fastapi_users import (BaseUserManager, FastAPIUsers, IntegerIDMixin,
                            InvalidPasswordException)
 from fastapi_users.authentication import (AuthenticationBackend,
@@ -53,14 +53,18 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         user: Union[UserCreate, User],
     ) -> None:
         """Валидация пароля."""
-        if len(password) < 3:
-            raise InvalidPasswordException(
-                reason='Пароль должен содержать не менее 3 символов'
-            )
         if user.email in password:
             raise InvalidPasswordException(
                 reason='Пароль не должен содержать адрес электронной почты'
             )
+
+    # действие после успешной регистрации
+    # TO DO: отправить юзеру письмо с логином и паролем
+    async def on_after_register(
+        self, user: User,
+        request: Optional[Request] = None
+    ):
+        print(f"User {user.id} has registered. {user.hashed_password}")
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):

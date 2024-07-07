@@ -1,3 +1,3 @@
 """Импорт моделей"""
-from .references import OrganizationsReferences, PositionsReferences, RegistrationGoalsReferences # noqa
+from .references import OrganizationsReferences, PositionsReferences, RegistrationGoalsReferences, RolesReferences # noqa
 from .users import User # noqa
