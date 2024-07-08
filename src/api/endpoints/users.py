@@ -1,11 +1,13 @@
-"""Роутеры для юзеров"""
+"""Роутеры для юзеров."""
 from fastapi import APIRouter
 
 from core.user import auth_backend, fastapi_users
 from schemas.users import UserCreate, UserRead, UserUpdate
 
 
+# создаем роутер
 router = APIRouter()
+
 
 # аутентификационный роутер(/login и /logout)
 router.include_router(

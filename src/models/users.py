@@ -1,19 +1,40 @@
 """Модели таблицы юзеров"""
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import Column, Integer, ForeignKey, String, Text
+from sqlalchemy import Column, Integer, ForeignKey, String
 
-from src.db.db import Base
+from db.db import Base
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
     """Создает класс пользователя"""
     # базовые поля: id, email, is_active, is_superuser, is_verified
     # добавляем пользовательские поля
-    organization = Column(Integer, ForeignKey('organizations_references.id'))
-    surname = Column(String, nullable=False)
-    username = Column(String, nullable=False)
+    organization = Column(
+        Integer,
+        ForeignKey('organizationsreferences.id')
+    )
+    surname = Column(
+        String,
+        nullable=False
+    )
+    username = Column(
+        String,
+        nullable=False
+    )
     patronymic = Column(String)
-    position = Column(Integer, ForeignKey('positions_references.id'))
-    phone = Column(String, nullable=False)
-    registration_goal = Column(Integer, ForeignKey('registration_goal_references.id'))
-    role = Column(Integer, ForeignKey('roles_references.id'))
+    position = Column(
+        Integer,
+        ForeignKey('positionsreferences.id')
+    )
+    phone = Column(
+        String,
+        nullable=False
+    )
+    registration_goal = Column(
+        Integer,
+        ForeignKey('registrationgoalsreferences.id')
+    )
+    role = Column(
+        Integer,
+        ForeignKey('rolesreferences.id')
+    )

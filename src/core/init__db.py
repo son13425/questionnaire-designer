@@ -38,7 +38,7 @@ async def create_user(
                             surname='string',
                             username='string',
                             phone='string',
-                            role=0
+                            role=4
                         )
                     )
     # В случае, если такой пользователь уже есть, ничего не предпринимать.
@@ -56,9 +56,5 @@ async def create_first_superuser():
         await create_user(
             email=settings.first_superuser_email,
             password=settings.first_superuser_password,
-            is_superuser=True,
-            surname='string',
-            username='string',
-            phone='string',
-            role=0
+            is_superuser=True
         )
