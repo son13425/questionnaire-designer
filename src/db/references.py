@@ -73,5 +73,5 @@ async def get_all_obj_from_reference(
         session: AsyncSession
 ) -> list[str]:
     """Возвращает список name всех объектов в справочнике"""
-    db_names = await session.execute(select(model.name))
+    db_names = await session.execute(select(model))
     return db_names.scalars().all()

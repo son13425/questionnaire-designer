@@ -3,6 +3,7 @@
 import uvicorn
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 from api.routers import main_router
 from core.config import settings
@@ -16,11 +17,28 @@ app = FastAPI(
     # адреса документации
     docs_url='/api/openapi',
     openapi_url='/api/openapi.json'
-    
 )
+
 # Подключение роутеров
 app.include_router(main_router)
 
+origins = [
+    'http://localhost:5173'
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['GET', 'POST', 'OPTIONS', 'DELETE', 'PATCH', 'PUT'],
+    allow_headers=[
+        'Content-Type',
+        'Set-Cookie',
+        'Access-Control-Allow-Headers',
+        'Access-Control-Allow-Origin',
+        'Authorization'
+    ],
+)
 
 @app.on_event('startup')
 async def startup():
