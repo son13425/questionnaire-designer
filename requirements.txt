@@ -1,6 +1,7 @@
 alembic==1.7.7
 anyio==4.0.0
 asyncio==3.4.3
+asyncpg
 fastapi==0.84.0
 fastapi-users
 fastapi-users-db-sqlalchemy==4.0.5
