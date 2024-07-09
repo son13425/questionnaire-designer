@@ -38,7 +38,7 @@ async def create_user(
                             surname='string',
                             username='string',
                             phone='string',
-                            role=4
+                            role=1
                         )
                     )
     # В случае, если такой пользователь уже есть, ничего не предпринимать.
