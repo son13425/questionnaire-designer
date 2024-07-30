@@ -64,7 +64,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         self, user: User,
         request: Optional[Request] = None
     ):
-        print(f"User {user.id} has registered. {user.hashed_password}")
+        print(f"User {user.email} has registered")
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):

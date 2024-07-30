@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     """Хранит переменные окружения."""
     name: str = 'Конструктор анкет'
     host: str = '0'
-    port: int = 8000
+    port: int = 8800
     database_dsn: PostgresDsn = (
         'postgresql+asyncpg://postgres:password@localhost:5432/postgres'
     )

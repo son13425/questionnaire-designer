@@ -1,4 +1,4 @@
-"""Работа с данными справочников"""
+"""Работа с данными справочников."""
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -72,6 +72,6 @@ async def get_all_obj_from_reference(
         model,
         session: AsyncSession
 ) -> list[str]:
-    """Возвращает список name всех объектов в справочнике"""
+    """Возвращает список всех объектов в справочнике"""
     db_names = await session.execute(select(model))
     return db_names.scalars().all()

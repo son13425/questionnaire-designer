@@ -14,7 +14,7 @@ router.include_router(
     # В роутер аутентификации
     # передается объект бэкенда аутентификации.
     fastapi_users.get_auth_router(auth_backend),
-    prefix='/auth/jwt',
+    prefix='/api/auth/jwt',
     tags=['auth'],
 )
 
