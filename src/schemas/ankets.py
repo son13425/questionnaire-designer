@@ -1,17 +1,25 @@
 """Схемы для анкет."""
-from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field
 
 
 class Ankets(BaseModel):
-    """Базовый класс схемы объекта Анкета"""
+    """Базовый класс схемы объекта Анкета."""
     label: Optional[str]
     description: Optional[str]
     is_active: Optional[bool]
     is_open: Optional[bool]
     is_subscribe: Optional[bool]
     for_iac: Optional[bool]
+
+
+class AnketStatus(Ankets):
+    """Схема для статуса анкеты (ответ)."""
+    is_open: bool
+
+    class Config:
+        """Разрешает сериализовать ORM-модель в схему"""
+        orm_mode = True
 
 
 class AnketUpdate(Ankets):
@@ -23,6 +31,16 @@ class AnketResponse(Ankets):
     """Класс схемы для возврата объекта Aнкета"""
     group: Optional[str]
     id: Optional[int]
+
+    class Config:
+        """Разрешает сериализовать ORM-модель в схему"""
+        orm_mode = True
+
+
+class AnketCreateResponse(BaseModel):
+    """Схема для ответа на создание Анкеты"""
+    uuid: str
+    is_open: bool
 
     class Config:
         """Разрешает сериализовать ORM-модель в схему"""

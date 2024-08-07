@@ -23,8 +23,8 @@ app = FastAPI(
 app.include_router(main_router)
 
 origins = [
-    'http://84.201.154.109'
-    # 'http://localhost:5173'
+    # 'http://84.201.154.109'
+    'http://localhost:5173'
 ]
 
 app.add_middleware(
@@ -41,10 +41,11 @@ app.add_middleware(
     ],
 )
 
-@app.on_event('startup')
-async def startup():
-    """Создает первого пользователя(суперюзера)"""
-    await create_first_superuser()
+
+# @app.on_event('startup')
+# async def startup():
+#     """Создает первого пользователя(суперюзера)"""
+#     await create_first_superuser()
 
 
 if __name__ == '__main__':

@@ -5,16 +5,14 @@ from fastapi.encoders import jsonable_encoder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.user import current_user
-from db.ankets import (create_anket, create_group, get_all_obj_ankets,
-                       get_all_obj_ankets_same_group, list_groups_with_ankets,
+from db.ankets import (create_anket, create_group, list_groups_with_ankets,
                        get_anket_by_uuid, get_label_group_by_id, update_anket)
 from db.db import get_session
 from db.references import get_all_obj_from_reference
 from models import User, Groups
-from schemas.ankets import (AnketCreate, AnketDB, Ankets,
-                            GroupBase, GroupCreate, GroupDB,
-                            GroupsAnketsDB, AnketResponse,
-                            AnketUpdate)
+from schemas.ankets import (AnketCreate, GroupCreate, GroupDB,
+                            GroupsAnketsDB, AnketResponse, AnketUpdate,
+                            AnketCreateResponse)
 
 
 router = APIRouter()
@@ -22,7 +20,7 @@ router = APIRouter()
 
 @router.post(
     '/ankets/',
-    response_model=list[GroupsAnketsDB],
+    response_model=AnketCreateResponse,
     response_model_exclude_none=True,
     dependencies=[Depends(current_user)]
 )
@@ -42,13 +40,7 @@ async def create_new_anket(
             status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
             detail='Не удалось создть анкету'
         )
-    list_ankets = await list_groups_with_ankets(session)
-    if list_ankets is None:
-        raise HTTPException(
-            status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
-            detail='В базе данных нет анкет'
-        )
-    return list_ankets
+    return new_anket
 
 
 @router.post(
@@ -91,7 +83,8 @@ async def get_all_ankets(
 @router.get(
     '/ankets/{uuid_anket}',
     response_model=AnketResponse,
-    response_model_exclude_none=True
+    response_model_exclude_none=True,
+    dependencies=[Depends(current_user)]
 )
 async def get_anket(
     uuid_anket: str,
@@ -105,7 +98,7 @@ async def get_anket(
     if obj_anket is None:
         raise HTTPException(
             status_code=404,
-            detail='Группа не найдена'
+            detail='Анкета не найдена'
         )
     group_label = await get_label_group_by_id(
         obj_anket.groups_id,
@@ -118,8 +111,9 @@ async def get_anket(
 
 @router.patch(
     '/ankets/{uuid_anket}',
-    response_model=list[GroupsAnketsDB],
-    response_model_exclude_none=True
+    response_model=AnketCreateResponse,
+    response_model_exclude_none=True,
+    dependencies=[Depends(current_user)]
 )
 async def partially_update_anket(
     uuid_anket: str,
@@ -139,13 +133,7 @@ async def partially_update_anket(
             status_code=404,
             detail='Анкета не найдена'
         )
-    list_ankets = await list_groups_with_ankets(session)
-    if list_ankets is None:
-        raise HTTPException(
-            status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
-            detail='В базе данных нет анкет'
-        )
-    return list_ankets
+    return new_anket
 
 
 @router.get(

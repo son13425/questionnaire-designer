@@ -9,7 +9,6 @@ from typing import Optional
 from models import Ankets, Groups, User
 from schemas.ankets import (AnketCreate,
                             AnketUpdate,
-                            GroupCreate,
                             GroupsAnketsDB)
 
 
@@ -178,18 +177,19 @@ async def update_anket(
     """Обновляет объект анкеты."""
     obj_data = jsonable_encoder(db_anket)
     update_data = anket_in.dict(exclude_unset=True)
-    db_group_id = await get_id_by_field(
-        update_data['group'],
-        session
-    )
-    if db_group_id is None:
-        db_new_group = await create_group(
+    if 'group' in update_data:
+        db_group_id = await get_id_by_field(
             update_data['group'],
             session
         )
-        update_data['groups_id'] = db_new_group.id
-    else:
-        update_data['groups_id'] = db_group_id
+        if db_group_id is None:
+            db_new_group = await create_group(
+                update_data['group'],
+                session
+            )
+            update_data['groups_id'] = db_new_group.id
+        else:
+            update_data['groups_id'] = db_group_id
     for field in obj_data:
         if field in update_data:
             setattr(db_anket, field, update_data[field])
